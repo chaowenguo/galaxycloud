@@ -1,0 +1,1 @@
+curl -O https://packages.microsoft.com/config/debian/11/packages-microsoft-prod.deb && apt install -y --no-install-recommends ./packages-microsoft-prod.deb && rm -rf packages-microsoft-prod.deb && apt update && apt install -y --no-install-recommends dotnet-sdk-8.0 xvfb
