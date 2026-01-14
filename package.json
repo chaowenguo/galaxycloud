@@ -1,0 +1,8 @@
+{
+    "dependencies":
+    {
+        "koa":"latest",
+        "koa-static":"latest",
+        "koa2-serve-index":"latest"
+    }
+}
