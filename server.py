@@ -1,4 +1,4 @@
-import asyncio, aiohttp.web, pathlib, uvloop, sys, fileinput, wizardgain, builtins, uuid, os
+import asyncio, aiohttp.web, pathlib, uvloop, sys, fileinput, wizardgain, builtins, uuid
 
 async def main():
     app = aiohttp.web.Application()
