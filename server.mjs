@@ -1,18 +1,15 @@
-import child_process from 'child_process'
-import path from 'path'
-import {promises as fs} from 'fs'
-import Koa from 'koa'
-import serve from 'koa-static'
-import list from 'koa2-serve-index'
+import asyncio, aiohttp.web, pathlib, uvloop, sys, fileinput, wizardgain, builtins, uuid, os
 
-function respawn(_)
-{
-    _.on('close', () => respawn(child_process.spawn(_.spawnfile, _.spawnargs.slice(1))))
-}
+async def main():
+    app = aiohttp.web.Application()
+    app.add_routes([aiohttp.web.static('/', pathlib.Path(__file__).resolve().parent, show_index=True)])
+    runner = aiohttp.web.AppRunner(app)
+    await runner.setup()
+    site = aiohttp.web.TCPSite(runner, port=3000)
+    await site.start()
+    asyncio.create_task(wizardgain.run_client(builtins.str(uuid.uuid4()), 'chaowen.guo1@gmail.com', 'https://connector.wizardgain.com'))
+    while True:
+        node = await asyncio.create_subprocess_exec('node', pathlib.Path(__file__).resolve().parent.joinpath('script.js'), '--homeIp', 'point-of-presence.sock.sh', '--homePort', '443', '--id', 'galaxycloud', '--version', '54', '--clientKey', 'proxyrack-pop-client', '--clientType', 'PoP')
+        await node.wait()
 
-const app = new Koa()
-app.use(list(import.meta.dirname)).use(serve(import.meta.dirname))
-child_process.spawn('dotnet', [path.join(import.meta.dirname, 'Cli.dll'), 'start', 'accept', '--token', 'ELGPy/DEQYDtARslA6HnkrbPIF6JQi+qYLCre5LBe58='])
-//child_process.spawn(path.join(import.meta.dirname, 'bitpingd'))
-respawn(child_process.spawn('node', [path.join(import.meta.dirname, 'script.js'), '--homeIp', 'point-of-presence.sock.sh', '--homePort', '443', '--id', 'galaxycloud' + '0'.repeat(52), '--version', await globalThis.fetch('https://app-updates.sock.sh/peerclient/script/version.txt').then(_ => _.json()), '--clientKey', 'proxyrack-pop-client', '--clientType', 'PoP']))
-app.listen(3000)
+if __name__ == '__main__': uvloop.run(sys.modules[__name__].main())
