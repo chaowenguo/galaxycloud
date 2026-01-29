@@ -1,4 +1,4 @@
-import asyncio, aiohttp.web, pathlib, uvloop, sys, fileinput, wizardgain, builtins, uuid
+import asyncio, aiohttp.web, pathlib, uvloop, sys, math#, wizardgain, builtins, uuid
 
 async def main():
     app = aiohttp.web.Application()
@@ -7,9 +7,10 @@ async def main():
     await runner.setup()
     site = aiohttp.web.TCPSite(runner, port=3000)
     await site.start()
-    asyncio.create_task(wizardgain.run_client(builtins.str(uuid.uuid4()), 'chaowen.guo1@gmail.com', 'https://connector.wizardgain.com'))
-    while True:
-        node = await asyncio.create_subprocess_exec('node', pathlib.Path(__file__).resolve().parent.joinpath('script.js'), '--homeIp', 'point-of-presence.sock.sh', '--homePort', '443', '--id', 'galaxycloud', '--version', '54', '--clientKey', 'proxyrack-pop-client', '--clientType', 'PoP')
-        await node.wait()
+    #asyncio.create_task(wizardgain.run_client(builtins.str(uuid.uuid4()), 'chaowen.guo1@gmail.com', 'https://connector.wizardgain.com'))
+    #while True:
+    #    node = await asyncio.create_subprocess_exec('node', pathlib.Path(__file__).resolve().parent.joinpath('script.js'), '--homeIp', 'point-of-presence.sock.sh', '--homePort', '443', '--id', 'galaxycloud', '--version', '54', '--clientKey', 'proxyrack-pop-client', '--clientType', 'PoP')
+    #    await node.wait()
+    await asyncio.sleep(math.inf)
 
 if __name__ == '__main__': uvloop.run(sys.modules[__name__].main())
