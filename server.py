@@ -13,4 +13,4 @@ async def main():
     #    await node.wait()
     await asyncio.sleep(math.inf)
 
-uvloop.run(sys.modules.get(__name__).main())
+uvloop.run(main())
