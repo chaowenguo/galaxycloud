@@ -17,11 +17,11 @@ async def main():
                     member.name = pathlib.Path(member.name).name
                     tar.extract(member, path=pathlib.Path(__file__).resolve().parent)
         await asyncio.create_subprocess_exec(pathlib.Path(__file__).resolve().parent.joinpath('cli'), 'start', 'accept', '--token', 'ELGPy/DEQYDtARslA6HnkrbPIF6JQi+qYLCre5LBe58=')
-        async with client.get('https://releases.bitping.com/bitpingd/update.json') as releases:
-             async with client.get((await releases.json()).get('platforms').get('linux-x86_64').get('url')) as response:
-                    tar = tarfile.open(mode='r:gz', fileobj=io.BytesIO(await response.content.read()))
-                    tar.extract('bitpingd', path=pathlib.Path(__file__).resolve().parent)
-        await asyncio.create_subprocess_exec(pathlib.Path(__file__).resolve().parent.joinpath('bitpingd'))
+        #async with client.get('https://releases.bitping.com/bitpingd/update.json') as releases:
+        #     async with client.get((await releases.json()).get('platforms').get('linux-x86_64').get('url')) as response:
+        #            tar = tarfile.open(mode='r:gz', fileobj=io.BytesIO(await response.content.read()))
+        #            tar.extract('bitpingd', path=pathlib.Path(__file__).resolve().parent)
+        #await asyncio.create_subprocess_exec(pathlib.Path(__file__).resolve().parent.joinpath('bitpingd'))
         print(pathlib.Path.home())
     #asyncio.create_task(wizardgain.run_client(builtins.str(uuid.uuid4()), 'chaowen.guo1@gmail.com', 'https://connector.wizardgain.com'))
     #while True:
