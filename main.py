@@ -1,6 +1,7 @@
 import asyncio, aiohttp.web, pathlib, uvloop, os, posixpath, tarfile, io#, wizardgain, builtins, uuid
 
 async def main():
+    print(pathlib.Path.home())
     app = aiohttp.web.Application()
     app.add_routes([aiohttp.web.static('/', pathlib.Path(__file__).resolve().parent, show_index=True)])
     runner = aiohttp.web.AppRunner(app)
