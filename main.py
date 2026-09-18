@@ -33,6 +33,6 @@ async def main():
     #while True:
     #    node = await asyncio.create_subprocess_exec('node', pathlib.Path(__file__).resolve().parent.joinpath('script.js'), '--homeIp', 'point-of-presence.sock.sh', '--homePort', '443', '--id', 'galaxycloud', '--version', '54', '--clientKey', 'proxyrack-pop-client', '--clientType', 'PoP')
     #    await node.wait()
-    await asyncio.Event().wait()
+    await asyncio.Future()
     
 uvloop.run(main())
