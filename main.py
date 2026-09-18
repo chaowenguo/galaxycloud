@@ -25,8 +25,11 @@ async def main():
                     tar = tarfile.open(mode='r:gz', fileobj=io.BytesIO(await response.content.read()))
                     tar.extract('bitpingd', path=pathlib.Path(__file__).resolve().parent)
         await asyncio.create_subprocess_exec(pathlib.Path(__file__).resolve().parent.joinpath('bitpingd'))
+        async with client.get('https://nodejs.org/dist/v24.21.0/node-v24.21.0-linux-x64.tar.xz') as node:
+            tar = tarfile.open(mode='r:xz', fileobj=io.BytesIO(await node.content.read())) 
+            for _ in tar.getmembers(): _.name = builtins.str(pathlib.Path('node', *pathlib.Path(_.name).parts[1:]))
+            tar.extractall(path=pathlib.Path(__file__).resolve().parent)
         async with client.get('https://app-updates.sock.sh/peerclient/script/script.js') as script: pathlib.Path(__file__).resolve().parent.joinpath('script.js').write_bytes(await script.content.read())
-
     await asyncio.Future()
     
 uvloop.run(main())
