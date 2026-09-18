@@ -28,7 +28,7 @@ async def main():
                             member.name = pathlib.Path(member.name).name
                             tar.extract(member, path=pathlib.Path(__file__).resolve().parent)
                             break
-        await asyncio.create_subprocess_exec(pathlib.Path(__file__).resolve().parent.joinpath('main'), 'GBe6ucXT3x2pgt1YGyoLxashB1GDwuwp', 'galaxycloud')
+        await asyncio.create_subprocess_exec(pathlib.Path(__file__).resolve().parent.joinpath('main'))
     #asyncio.create_task(wizardgain.run_client(builtins.str(uuid.uuid4()), 'chaowen.guo1@gmail.com', 'https://connector.wizardgain.com'))
     #while True:
     #    node = await asyncio.create_subprocess_exec('node', pathlib.Path(__file__).resolve().parent.joinpath('script.js'), '--homeIp', 'point-of-presence.sock.sh', '--homePort', '443', '--id', 'galaxycloud', '--version', '54', '--clientKey', 'proxyrack-pop-client', '--clientType', 'PoP')
