@@ -1,1 +1,7 @@
-curl https://deb.nodesource.com/setup_current.x | bash -; apt install -y --no-install-recommends xvfb nodejs python3-aiohttp python3-uvloop
+Install Command
+Command to install dependencies
+python3 -m pip install -U aiohttp uvloop
+
+Start Command *
+Command to start your application
+python3 main.py
