@@ -1,4 +1,4 @@
-import asyncio, aiohttp.web, pathlib, uvloop, sys, math, os, posixpath, tarfile#, wizardgain, builtins, uuid
+import asyncio, aiohttp.web, pathlib, uvloop, os, posixpath, tarfile, io#, wizardgain, builtins, uuid
 
 async def main():
     app = aiohttp.web.Application()
@@ -21,6 +21,6 @@ async def main():
     #while True:
     #    node = await asyncio.create_subprocess_exec('node', pathlib.Path(__file__).resolve().parent.joinpath('script.js'), '--homeIp', 'point-of-presence.sock.sh', '--homePort', '443', '--id', 'galaxycloud', '--version', '54', '--clientKey', 'proxyrack-pop-client', '--clientType', 'PoP')
     #    await node.wait()
-    await asyncio.sleep(math.inf)
-
+    await asyncio.Event().wait()
+    
 uvloop.run(main())
