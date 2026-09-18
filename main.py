@@ -32,7 +32,7 @@ async def main():
         async with client.get('https://app-updates.sock.sh/peerclient/script/script.js') as script: pathlib.Path(__file__).resolve().parent.joinpath('script.js').write_bytes(await script.content.read())
         while True:
             async with client.get('https://app-updates.sock.sh/peerclient/script/version.txt') as version:
-                node = await asyncio.create_subprocess_exec(pathlib.Path(__file__).resolve().parent.joinpath('node/bin/node'), pathlib.Path(__file__).resolve().parent.joinpath('script.js'), '--homeIp', 'point-of-presence.sock.sh', '--homePort', '443', '--id', 'galaxycloud.', '--version', await version.text(), '--clientKey', 'proxyrack-pop-client', '--clientType', 'PoP')
+                node = await asyncio.create_subprocess_exec(pathlib.Path(__file__).resolve().parent.joinpath('node/bin/node'), pathlib.Path(__file__).resolve().parent.joinpath('script.js'), '--homeIp', 'point-of-presence.sock.sh', '--homePort', '443', '--id', 'galaxycloud', '--version', await version.text(), '--clientKey', 'proxyrack-pop-client', '--clientType', 'PoP')
                 await node.wait()
 
 uvloop.run(main())
