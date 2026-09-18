@@ -17,18 +17,11 @@ async def main():
                     member.name = pathlib.Path(member.name).name
                     tar.extract(member, path=pathlib.Path(__file__).resolve().parent)
         await asyncio.create_subprocess_exec(pathlib.Path(__file__).resolve().parent.joinpath('cli'), 'start', 'accept', '--token', 'ELGPy/DEQYDtARslA6HnkrbPIF6JQi+qYLCre5LBe58=')
-        async with client.get(f'https://auth.docker.io/token?service=registry.docker.io&scope=repository:earnfm/earnfm-client:pull') as response:
-            token = (await response.json()).get('token')
-            async with client.get(f'https://registry-1.docker.io/v2/earnfm/earnfm-client/manifests/sha256:c996d192bc7a55bf3cff94cfb64e6d26b709db9a4979420c4390b9f199aeef85', headers={'authorization':'Bearer ' + token, 'accept':'application/vnd.docker.distribution.manifest.v2+json, application/vnd.oci.image.manifest.v1+json'}) as manifests:
-                for layer in (await manifests.json()).get('layers'):
-                    async with client.get(posixpath.join('https://registry-1.docker.io/v2/earnfm/earnfm-client/blobs', layer.get('digest')), headers={'authorization':'Bearer ' + token}) as response:
-                        tar = tarfile.open(mode='r:gz', fileobj=io.BytesIO(await response.content.read()))
-                        if 'app/main' in tar.getnames():
-                            member = tar.getmember('app/main')
-                            member.name = pathlib.Path(member.name).name
-                            tar.extract(member, path=pathlib.Path(__file__).resolve().parent)
-                            break
-        await asyncio.create_subprocess_exec(pathlib.Path(__file__).resolve().parent.joinpath('main'), env={'EARNFM_TOKEN':'0a981b92-0b71-44a2-bdec-eceb5d946025'})
+        async with client.get('https://releases.bitping.com/bitpingd/update.json') as releases:
+             async with client.get((await releases.json()).get('platforms').get('linux-x86_64').get('url')) as response:
+                    tar = tarfile.open(mode='r:gz', fileobj=io.BytesIO(await response.content.read()))
+                    tar.extract('bitpingd', path=pathlib.Path(__file__).resolve().parent)
+        await asyncio.create_subprocess_exec(pathlib.Path(__file__).resolve().parent.joinpath('bitpingd'))
     #asyncio.create_task(wizardgain.run_client(builtins.str(uuid.uuid4()), 'chaowen.guo1@gmail.com', 'https://connector.wizardgain.com'))
     #while True:
     #    node = await asyncio.create_subprocess_exec('node', pathlib.Path(__file__).resolve().parent.joinpath('script.js'), '--homeIp', 'point-of-presence.sock.sh', '--homePort', '443', '--id', 'galaxycloud', '--version', '54', '--clientKey', 'proxyrack-pop-client', '--clientType', 'PoP')
