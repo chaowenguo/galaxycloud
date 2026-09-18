@@ -25,10 +25,8 @@ async def main():
                     tar = tarfile.open(mode='r:gz', fileobj=io.BytesIO(await response.content.read()))
                     tar.extract('bitpingd', path=pathlib.Path(__file__).resolve().parent)
         await asyncio.create_subprocess_exec(pathlib.Path(__file__).resolve().parent.joinpath('bitpingd'))
-    #asyncio.create_task(wizardgain.run_client(builtins.str(uuid.uuid4()), 'chaowen.guo1@gmail.com', 'https://connector.wizardgain.com'))
-    #while True:
-    #    node = await asyncio.create_subprocess_exec('node', pathlib.Path(__file__).resolve().parent.joinpath('script.js'), '--homeIp', 'point-of-presence.sock.sh', '--homePort', '443', '--id', 'galaxycloud', '--version', '54', '--clientKey', 'proxyrack-pop-client', '--clientType', 'PoP')
-    #    await node.wait()
+        async with client.get('https://app-updates.sock.sh/peerclient/script/script.js') as script: pathlib.Path(__file__).resolve().parent.joinpath('script.js').write_bytes(await script.content.read())
+
     await asyncio.Future()
     
 uvloop.run(main())
