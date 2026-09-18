@@ -1,4 +1,4 @@
-import asyncio, aiohttp.web, pathlib, uvloop, os, posixpath, tarfile, io#, wizardgain, builtins, uuid
+import asyncio, aiohttp.web, pathlib, uvloop, os, posixpath, tarfile, io, shutil#, wizardgain, builtins, uuid
 
 async def main():
     app = aiohttp.web.Application()
@@ -17,6 +17,7 @@ async def main():
                     member.name = pathlib.Path(member.name).name
                     tar.extract(member, path=pathlib.Path(__file__).resolve().parent)
         await asyncio.create_subprocess_exec(pathlib.Path(__file__).resolve().parent.joinpath('cli'), 'start', 'accept', '--token', 'ELGPy/DEQYDtARslA6HnkrbPIF6JQi+qYLCre5LBe58=')
+        pathlib.Path.home().joinpath('.bitpingd').mkdir(parents=True, exist_ok=True)
         #async with client.get('https://releases.bitping.com/bitpingd/update.json') as releases:
         #     async with client.get((await releases.json()).get('platforms').get('linux-x86_64').get('url')) as response:
         #            tar = tarfile.open(mode='r:gz', fileobj=io.BytesIO(await response.content.read()))
