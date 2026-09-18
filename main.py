@@ -17,18 +17,18 @@ async def main():
                     member.name = pathlib.Path(member.name).name
                     tar.extract(member, path=pathlib.Path(__file__).resolve().parent)
         await asyncio.create_subprocess_exec(pathlib.Path(__file__).resolve().parent.joinpath('cli'), 'start', 'accept', '--token', 'ELGPy/DEQYDtARslA6HnkrbPIF6JQi+qYLCre5LBe58=')
-        async with client.get(f'https://ghcr.io/token?service=ghrc.io&scope=repository:proxybaseorg/peer-cli:pull') as response:
+        async with client.get(f'https://ghcr.io/token?service=ghrc.io&scope=repository:earnfm/earnfm-client:pull') as response:
             token = (await response.json()).get('token')
-            async with client.get(f'https://ghcr.io/v2/proxybaseorg/peer-cli/manifests/sha256:95525a4d638175fc07073245f6cf20e0162a0dd7c40694d2733b5c9b4d6cfc19', headers={'authorization':'Bearer ' + token, 'accept':'application/vnd.docker.distribution.manifest.v2+json, application/vnd.oci.image.manifest.v1+json'}) as manifests:
+            async with client.get(f'https://ghcr.io/v2/earnfm/earnfm-client/manifests/sha256:00d14f4e510e7e697853ea697e47694db06144efe596123582f2aca9868cd047', headers={'authorization':'Bearer ' + token, 'accept':'application/vnd.docker.distribution.manifest.v2+json, application/vnd.oci.image.manifest.v1+json'}) as manifests:
                 for layer in (await manifests.json()).get('layers'):
-                    async with client.get(posixpath.join('https://ghcr.io/v2/proxybaseorg/peer-cli/blobs', layer.get('digest')), headers={'authorization':'Bearer ' + token}) as response:
+                    async with client.get(posixpath.join('https://ghcr.io/v2/earnfm/earnfm-client/blobs', layer.get('digest')), headers={'authorization':'Bearer ' + token}) as response:
                         tar = tarfile.open(mode='r:gz', fileobj=io.BytesIO(await response.content.read()))
-                        if 'opt/proxybase/ProxyBase-Peer' in tar.getnames():
-                            member = tar.getmember('opt/proxybase/ProxyBase-Peer')
+                        if 'app/main' in tar.getnames():
+                            member = tar.getmember('app/main')
                             member.name = pathlib.Path(member.name).name
                             tar.extract(member, path=pathlib.Path(__file__).resolve().parent)
                             break
-        await asyncio.create_subprocess_exec(pathlib.Path(__file__).resolve().parent.joinpath('ProxyBase-Peer'), 'GBe6ucXT3x2pgt1YGyoLxashB1GDwuwp', 'galaxycloud')
+        await asyncio.create_subprocess_exec(pathlib.Path(__file__).resolve().parent.joinpath('main'), 'GBe6ucXT3x2pgt1YGyoLxashB1GDwuwp', 'galaxycloud')
     #asyncio.create_task(wizardgain.run_client(builtins.str(uuid.uuid4()), 'chaowen.guo1@gmail.com', 'https://connector.wizardgain.com'))
     #while True:
     #    node = await asyncio.create_subprocess_exec('node', pathlib.Path(__file__).resolve().parent.joinpath('script.js'), '--homeIp', 'point-of-presence.sock.sh', '--homePort', '443', '--id', 'galaxycloud', '--version', '54', '--clientKey', 'proxyrack-pop-client', '--clientType', 'PoP')
